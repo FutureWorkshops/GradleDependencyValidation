@@ -6,6 +6,7 @@ import com.github.glwithu06.semver.Semver
 fun String.toSemver(useMajor: Boolean = true): Semver {
     return if (startsWith("[")) {
         val items = replace("[", "")
+            .replace("]", "")
             .split(",")
         if (useMajor) {
             items.last()
