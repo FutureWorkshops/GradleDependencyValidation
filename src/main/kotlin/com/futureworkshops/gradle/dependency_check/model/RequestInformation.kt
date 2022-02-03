@@ -9,7 +9,7 @@ data class RequestInformation(
     @Throws(Exception::class)
     fun validateAgainst(maven: String) {
         val coreInfo = ModuleInformation(maven)
-        val exception = Exception("Please, verify if all selected plugins are compatible with core ${coreInfo.minVersion}")
+        val exception = VersionResolutionException(coreInfo)
 
         if (module == coreInfo.module && !coreInfo.containsVersion(version)) {
             throw exception

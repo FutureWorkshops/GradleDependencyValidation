@@ -12,8 +12,8 @@ plugins {
     kotlin("jvm") version "1.4.32"
 }
 
-group = "com.futureworkshops.gradle.dependency_check"
-version = "1.0.0"
+group = project.property("group").toString()
+version = project.property("version").toString()
 
 repositories {
     google()
@@ -44,8 +44,6 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "11"
         freeCompilerArgs = listOf(
             "-Xopt-in=kotlin.Experimental",
-            "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-Xopt-in=kotlin.ExperimentalStdlibApi"
         )
     }
@@ -71,17 +69,18 @@ publishing {
             from(components["java"])
             artifact(sourcesJar.get())
 
-            groupId = "com.futureworkshops.gradle"
-            version = "1.0.0"
-            artifactId = "dependency_check"
+            groupId = project.property("group").toString()
+            version = project.property("version").toString()
+            artifactId = project.property("artifact").toString()
 
             pom {
                 name.set("App Rail")
                 url.set("https://app-rail.io")
                 licenses {
                     license {
+                        name.set("Apache 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.html")
                         distribution.set("repo")
-                        comments.set("© 2022 Future Workshops Limited, All rights reserved")
                     }
                 }
                 developers {

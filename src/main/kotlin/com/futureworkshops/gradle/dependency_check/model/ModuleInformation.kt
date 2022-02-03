@@ -14,6 +14,8 @@ data class ModuleInformation(
                 maxVersion = string.split(":").toMutableList().removeLast().toSemver(useMajor = true),
                 module = string.split(":").dropLast(1).joinToString(":")
             )
-    fun containsVersion(other: String?): Boolean = containsVersion(other?.toSemver())
+
+    @Suppress("MemberVisibilityCanBePrivate")
     fun containsVersion(other: Semver?): Boolean = other != null && other in minVersion..maxVersion
+    fun containsVersion(other: String?): Boolean = containsVersion(other?.toSemver())
 }

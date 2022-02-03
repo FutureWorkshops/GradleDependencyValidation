@@ -1,10 +1,10 @@
 package com.futureworkshops.gradle.dependency_check
 
 import com.futureworkshops.gradle.dependency_check.model.RequestInformation
+import com.futureworkshops.gradle.dependency_check.model.VersionResolutionException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import java.lang.Exception
 
 class TestCoreResolution {
 
@@ -38,7 +38,7 @@ class TestCoreResolution {
         val validCoreVersion = "1.0.26"
 
         val request = RequestInformation(module = validCoreModule, version = validCoreVersion)
-        assertThrows<Exception>("Invalid version should throw") {
+        assertThrows<VersionResolutionException>("Invalid version should throw") {
             request.validateAgainst(coreMaven)
         }
     }
