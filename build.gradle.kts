@@ -8,7 +8,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `maven-publish`
+    id("maven-publish")
     kotlin("jvm") version "1.4.32"
 }
 
@@ -73,6 +73,8 @@ publishing {
             version = project.property("version").toString()
             artifactId = project.property("artifact").toString()
 
+            description = "Set of code to support the validation of dependencies on Gradle projects"
+
             pom {
                 name.set("App Rail")
                 url.set("https://app-rail.io")
@@ -90,6 +92,16 @@ publishing {
                         email.set("info@futureworkshops.com")
                     }
                 }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/FutureWorkshops/GradleDependencyValidation")
+            credentials {
+                username = project.findProperty("gpr.user")?.toString() ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key")?.toString() ?: System.getenv("TOKEN")
             }
         }
     }
